@@ -10,7 +10,8 @@
   "author": "Nil Késede",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.12.9"
   },
   "devDependencies": {
     "eslint": "^7.26.0",
