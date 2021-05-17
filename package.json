@@ -4,7 +4,7 @@
   "description": "URL shortener",
   "private": true,
   "scripts": {
-    "start": "node server",
+    "start": "node .",
     "test": "jest --forceExit --detectOpenHandles",
     "test:watch": "jest --watch --detectOpenHandles"
   },

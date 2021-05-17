@@ -1,16 +1,16 @@
 # short-url
-> [URL shortener](https://short-url-nilkesede.vercel.app)
+> URL shortener
 
 ### Usage
 ```
-POST https://short-url-nilkesede.vercel.app
+POST http://localhost:3000
 {
     "url": "https://www.google.com/"
 }
 
 RESPONSE
 {
-    "newUrl": "https://short-url-nilkesede.vercel.app/Z6XPGgxnd7"
+    "newUrl": "http://localhost:3000/Z6XPGgxnd7"
 }
 ```
 
