@@ -1,3 +1,3 @@
-module.exports = {
+module.exports = () => ({
   DB_CONNECTION: process.env.DB_CONNECTION || ''
-}
+})

@@ -1,17 +1,13 @@
 const request = require('supertest')
 const { MongoMemoryServer } = require('mongodb-memory-server')
-const config = require('../src/config')
-const server = require('../src/server')
+const startServer = require('../server')
 
 let app
 
 beforeAll(async () => {
   const mongo = new MongoMemoryServer()
-  const mongoUri = await mongo.getUri()
-  app = await server({
-    ...config,
-    DB_CONNECTION: mongoUri
-  })
+  process.env.DB_CONNECTION = await mongo.getUri()
+  app = await startServer()
 })
 
 afterAll(() => {
@@ -19,7 +15,7 @@ afterAll(() => {
 })
 
 describe('URL endpoints', () => {
-  const originalUrl = 'https://nilkesede.sh'
+  const originalUrl = 'https://google.com'
   let newUrl
 
   it('should create a new short url', async () => {

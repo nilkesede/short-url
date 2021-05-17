@@ -1,0 +1,6 @@
+{
+  "routes": [
+      { "src": "/(?<slug>[^/]*)", "methods": ["GET"],  "dest": "/api/[slug].js?slug=$slug"},
+      { "src": "/", "methods": ["POST"],  "dest": "/api/index.js"}
+  ]
+}
