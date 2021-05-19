@@ -1,8 +1,8 @@
 const express = require('express')
 
 const makeConfig = require('./config')
-const slug = require('./routes/slug')
-const index = require('./routes')
+const slug = require('./services/slug')
+const index = require('./services')
 
 module.exports = async () => {
   const config = makeConfig()

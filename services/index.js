@@ -13,20 +13,20 @@ module.exports = async (req, res) => {
       useUnifiedTopology: true
     })
 
-    const { slug } = req.params || req.query
+    const { url } = req.body
 
-    if (!slug) {
+    if (!url) {
       return res.status(400).send('url inválida')
     }
 
     const urlCreated = await Url.findOne(
       {
-        slug,
+        url,
         created: {
           $gt: dayjs().subtract(1, 'months')
         }
       },
-      'url',
+      'slug',
       {
         sort: {
           created: -1
@@ -35,14 +35,20 @@ module.exports = async (req, res) => {
     )
 
     if (urlCreated) {
-      return res.redirect(301, urlCreated.url)
+      return res.status(200).json({
+        newUrl: `${config.BASE_URL}/${urlCreated.slug}`
+      })
     }
 
-    return res.status(404).send({
-      message: 'url not found'
+    const newUrl = await Url.create({ url })
+
+    return res.status(200).send({
+      newUrl: `${config.BASE_URL}/${newUrl.slug}`
     })
   } catch (error) {
     console.error(error)
-    return res.status(500).send({ message: 'Erro ao procurar url!' })
+    return res.status(500).send({ message: 'Erro ao encurtar url!' })
+  } finally {
+    mongoose.connection.close()
   }
 }
