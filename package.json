@@ -5,8 +5,10 @@
   "private": true,
   "scripts": {
     "start": "node .",
+    "lint": "eslint .",
     "test": "jest --forceExit --detectOpenHandles",
-    "test:watch": "jest --watch --detectOpenHandles"
+    "test:watch": "jest --watch --detectOpenHandles",
+    "prepare": "husky install"
   },
   "author": "Nil Késede",
   "license": "MIT",
@@ -19,11 +21,15 @@
     "nanoid-dictionary": "^4.3.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "commitlint": "^12.1.4",
     "eslint": "^7.26.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.2",
     "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
     "jest": "^26.6.3",
     "mongodb-memory-server": "^6.9.6",
     "prettier": "^2.3.0",
