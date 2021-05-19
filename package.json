@@ -2,16 +2,14 @@
   "name": "short-url",
   "version": "1.0.0",
   "description": "URL shortener",
-  "private": true,
+  "license": "MIT",
+  "author": "Nil Késede",
   "scripts": {
-    "start": "node .",
     "lint": "eslint .",
-    "test": "jest --forceExit --detectOpenHandles",
-    "test:watch": "jest --watch --detectOpenHandles",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --forceExit --detectOpenHandles",
+    "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch --detectOpenHandles",
     "prepare": "husky install"
   },
-  "author": "Nil Késede",
-  "license": "MIT",
   "dependencies": {
     "dayjs": "^1.10.4",
     "express": "^4.17.1",
@@ -33,5 +31,6 @@
     "mongodb-memory-server": "^6.9.6",
     "prettier": "^2.3.0",
     "supertest": "^6.1.3"
-  }
+  },
+  "private": true
 }

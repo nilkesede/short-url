@@ -2,12 +2,10 @@ const mongoose = require('mongoose')
 const dayjs = require('dayjs')
 
 const { Url } = require('../models')
-const makeConfig = require('../config')
+const config = require('../config')
 
 module.exports = async (req, res) => {
   try {
-    const config = makeConfig()
-
     await mongoose.connect(config.DB_CONNECTION, {
       useNewUrlParser: true,
       useUnifiedTopology: true

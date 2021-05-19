@@ -1,18 +1,7 @@
 const request = require('supertest')
-const { MongoMemoryServer } = require('mongodb-memory-server')
-const startServer = require('../server')
+const startServer = require('./_server')
 
-let app
-
-beforeAll(async () => {
-  const mongo = new MongoMemoryServer()
-  process.env.DB_CONNECTION = await mongo.getUri()
-  app = await startServer()
-})
-
-afterAll(() => {
-  app.close()
-})
+const app = startServer()
 
 describe('URL endpoints', () => {
   const originalUrl = 'https://google.com'
