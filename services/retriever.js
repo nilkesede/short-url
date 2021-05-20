@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
-const dayjs = require('dayjs')
 
 const { Url } = require('../models')
 const config = require('../config')
+const { BadRequestError, NotFoundError } = require('../utils/errors')
 
 module.exports = async (req, res) => {
   try {
@@ -11,18 +11,15 @@ module.exports = async (req, res) => {
       useUnifiedTopology: true
     })
 
-    const { slug } = req.params || req.query
+    const { slug } = req.params
 
     if (!slug) {
-      return res.status(400).send('url inválida')
+      throw new BadRequestError('URL inválida!')
     }
 
     const urlCreated = await Url.findOne(
       {
-        slug,
-        created: {
-          $gt: dayjs().subtract(1, 'months')
-        }
+        slug
       },
       'url',
       {
@@ -36,13 +33,10 @@ module.exports = async (req, res) => {
       return res.redirect(301, urlCreated.url)
     }
 
-    return res.status(404).send({
-      message: 'url not found'
-    })
+    throw new NotFoundError('URL não encontrada!')
   } catch (error) {
-    console.error(error)
-    return res.status(500).send({ message: 'Erro ao procurar url!' })
-  } finally {
-    mongoose.connection.close()
+    return res
+      .status(error.code || 500)
+      .send({ message: error.message || 'Erro ao procurar url!' })
   }
 }

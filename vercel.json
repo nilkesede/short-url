@@ -3,7 +3,7 @@
     { "src": "services/*.js", "use": "@vercel/node" }
   ],
   "routes": [
-      { "src": "/(?<slug>[^/]*)", "methods": ["GET"],  "dest": "/services/slug.js?slug=$slug"},
-      { "src": "/", "methods": ["POST"],  "dest": "/services/index.js"}
+      { "src": "/(?<slug>[^/]*)", "methods": ["GET"],  "dest": "/services/retriever.js?slug=$slug"},
+      { "src": "/", "methods": ["POST"],  "dest": "/services/generator.js"}
   ]
 }

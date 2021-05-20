@@ -3,6 +3,8 @@ const dayjs = require('dayjs')
 
 const { Url } = require('../models')
 const config = require('../config')
+const { isValidURL } = require('../utils')
+const { BadRequestError } = require('../utils/errors')
 
 module.exports = async (req, res) => {
   try {
@@ -13,15 +15,15 @@ module.exports = async (req, res) => {
 
     const { url } = req.body
 
-    if (!url) {
-      return res.status(400).send('url inválida')
+    if (!isValidURL(url)) {
+      throw new BadRequestError('URL inválida!')
     }
 
     const urlCreated = await Url.findOne(
       {
         url,
         created: {
-          $gt: dayjs().subtract(1, 'months')
+          $gt: dayjs().subtract(1, 'M')
         }
       },
       'slug',
@@ -33,20 +35,19 @@ module.exports = async (req, res) => {
     )
 
     if (urlCreated) {
-      return res.status(200).json({
-        newUrl: `${config.BASE_URL}/${urlCreated.slug}`
+      return res.status(200).send({
+        url: `${config.BASE_URL}/${urlCreated.slug}`
       })
     }
 
     const newUrl = await Url.create({ url })
 
     return res.status(200).send({
-      newUrl: `${config.BASE_URL}/${newUrl.slug}`
+      url: `${config.BASE_URL}/${newUrl.slug}`
     })
   } catch (error) {
-    console.error(error)
-    return res.status(500).send({ message: 'Erro ao encurtar url!' })
-  } finally {
-    mongoose.connection.close()
+    return res
+      .status(error.code || 500)
+      .send({ message: error.message || 'Erro ao encurtar url!' })
   }
 }

@@ -1,5 +1,7 @@
 module.exports = {
-  testEnvironment: 'node',
+  bail: true,
+  collectCoverage: true,
   coveragePathIgnorePatterns: ['./node_modules'],
-  setupFiles: ['./tests/jest.setup.mjs']
+  setupFiles: ['./tests/_setup.mjs'],
+  testEnvironment: 'node'
 }
