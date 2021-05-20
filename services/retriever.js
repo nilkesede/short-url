@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
       useUnifiedTopology: true
     })
 
-    const { slug } = req.params
+    const { slug } = req.params || req.query
 
     if (!slug) {
       throw new BadRequestError('URL inválida!')
