@@ -9,5 +9,5 @@ script:
   - npm run lint
   - npm test
 after_script:
-  - ./cc-test-reporter format-coverage -t lcov ./coverage/lcov.info
+  - ./cc-test-reporter format-coverage -t lcov ./tests/coverage/lcov.info
   - ./cc-test-reporter upload-coverage
