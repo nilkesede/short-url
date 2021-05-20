@@ -1,16 +1,20 @@
 # short-url
 > URL shortener
 
+![Travis (.com)](https://img.shields.io/travis/com/nilkesede/short-url?style=flat-square)
+![Code Climate coverage](https://img.shields.io/codeclimate/coverage-letter/nilkesede/short-url?style=flat-square)
+![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/nilkesede/short-url?style=flat-square)
+
 ### Usage
 ```
-POST http://localhost:3000
+POST https://short-url-nilkesede.vercel.app
 {
-    "url": "https://www.google.com/"
+    "url": "https://nilkesede.sh"
 }
 
 RESPONSE
 {
-    "newUrl": "http://localhost:3000/Z6XPGgxnd7"
+    "url": "https://short-url-nilkesede.vercel.app/Z6XPGgxnd7"
 }
 ```
 
