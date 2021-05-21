@@ -4,13 +4,11 @@ const { Url } = require('../models')
 const config = require('../config')
 const { isValidURL } = require('../lib/utils')
 const { BadRequestError } = require('../lib/errors')
-const connectDatabase = require('../lib/connectors/database')
+const Service = require('../lib/Service')
 
-module.exports = async (req, res) => {
-  try {
-    await connectDatabase()
-
-    const { url } = req.body
+class Generator extends Service {
+  async doAction() {
+    const { url } = this.req.body
 
     if (!isValidURL(url)) {
       throw new BadRequestError('URL inválida!')
@@ -32,19 +30,17 @@ module.exports = async (req, res) => {
     )
 
     if (urlCreated) {
-      return res.status(200).send({
+      return {
         url: `${config.BASE_URL}/${urlCreated.slug}`
-      })
+      }
     }
 
     const newUrl = await Url.create({ url })
 
-    return res.status(200).send({
+    return {
       url: `${config.BASE_URL}/${newUrl.slug}`
-    })
-  } catch (error) {
-    return res
-      .status(error.code || 500)
-      .send({ message: error.message || 'Erro ao encurtar url!' })
+    }
   }
 }
+
+module.exports = (...params) => Generator.execute(...params)

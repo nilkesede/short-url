@@ -1,12 +1,10 @@
 const { Url } = require('../models')
 const { BadRequestError, NotFoundError } = require('../lib/errors')
-const connectDatabase = require('../lib/connectors/database')
+const Service = require('../lib/Service')
 
-module.exports = async (req, res) => {
-  try {
-    await connectDatabase()
-
-    const { slug } = req.params || req.query
+class Retriever extends Service {
+  async doAction() {
+    const { slug } = this.req.params || this.req.query
 
     if (!slug) {
       throw new BadRequestError('URL inválida!')
@@ -25,13 +23,11 @@ module.exports = async (req, res) => {
     )
 
     if (urlCreated) {
-      return res.redirect(301, urlCreated.url)
+      return this.respondWithRedirect(urlCreated.url)
     }
 
     throw new NotFoundError('URL não encontrada!')
-  } catch (error) {
-    return res
-      .status(error.code || 500)
-      .send({ message: error.message || 'Erro ao procurar url!' })
   }
 }
+
+module.exports = (...params) => Retriever.execute(...params)

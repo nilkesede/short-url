@@ -7,10 +7,11 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'prettier/prettier': 'error',
-    'no-console': 'off',
     'no-underscore-dangle': [
       'error',
       { allow: ['_getData', '_getHeaders', '_getRedirectUrl'] }
-    ]
+    ],
+    'class-methods-use-this': 'off',
+    'func-names': 'off'
   }
 }
