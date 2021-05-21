@@ -1,17 +1,14 @@
-const mongoose = require('mongoose')
 const dayjs = require('dayjs')
 
 const { Url } = require('../models')
 const config = require('../config')
-const { isValidURL } = require('../utils')
-const { BadRequestError } = require('../utils/errors')
+const { isValidURL } = require('../lib/utils')
+const { BadRequestError } = require('../lib/errors')
+const connectDatabase = require('../lib/connectors/database')
 
 module.exports = async (req, res) => {
   try {
-    await mongoose.connect(config.DB_CONNECTION, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
+    await connectDatabase()
 
     const { url } = req.body
 

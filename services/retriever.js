@@ -1,15 +1,10 @@
-const mongoose = require('mongoose')
-
 const { Url } = require('../models')
-const config = require('../config')
-const { BadRequestError, NotFoundError } = require('../utils/errors')
+const { BadRequestError, NotFoundError } = require('../lib/errors')
+const connectDatabase = require('../lib/connectors/database')
 
 module.exports = async (req, res) => {
   try {
-    await mongoose.connect(config.DB_CONNECTION, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
+    await connectDatabase()
 
     const { slug } = req.params || req.query
 
