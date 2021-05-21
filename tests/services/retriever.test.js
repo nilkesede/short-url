@@ -16,7 +16,7 @@ describe('URL endpoints', () => {
   it('should redirects to the original url', async () => {
     const slug = generatedUrl.split('/').pop()
     const { res } = await expressMock(retriever, {
-      params: { slug }
+      query: { slug }
     })
     const redirectUrl = res._getRedirectUrl()
 
@@ -34,7 +34,7 @@ describe('URL endpoints', () => {
 
   it('should requires created url', async () => {
     const { res } = await expressMock(retriever, {
-      params: { slug: 'notaslug' }
+      query: { slug: 'notaslug' }
     })
     const data = res._getData()
 

@@ -1,11 +1,12 @@
 const { model, Schema, SchemaTypes } = require('mongoose')
 const { customAlphabet } = require('nanoid')
 const { alphanumeric } = require('nanoid-dictionary')
+const dayjs = require('dayjs')
 require('mongoose-type-url')
 
 const nanoid = customAlphabet(alphanumeric, 10)
 
-module.exports = model(
+const Url = model(
   'Url',
   new Schema({
     url: {
@@ -24,3 +25,45 @@ module.exports = model(
     }
   })
 )
+
+async function findOneValidOrCreate(url) {
+  const persisted = await Url.findOne(
+    {
+      url,
+      created: {
+        $gt: dayjs().subtract(1, 'M')
+      }
+    },
+    'slug',
+    {
+      sort: {
+        created: -1
+      }
+    }
+  )
+
+  if (persisted) {
+    return persisted
+  }
+
+  return Url.create({ url })
+}
+
+function findBySlug(slug) {
+  return Url.findOne(
+    {
+      slug
+    },
+    'url',
+    {
+      sort: {
+        created: -1
+      }
+    }
+  )
+}
+
+module.exports = Object.assign(Url, {
+  findOneValidOrCreate,
+  findBySlug
+})
