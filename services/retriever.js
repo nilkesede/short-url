@@ -13,7 +13,10 @@ class Retriever extends Service {
     const urlCreated = await Url.findBySlug(slug)
 
     if (urlCreated) {
-      return this.respondWithRedirect(urlCreated.url)
+      return {
+        url: urlCreated.url,
+        redirect: true
+      }
     }
 
     throw new NotFoundError('URL não encontrada!')
