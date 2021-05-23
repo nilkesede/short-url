@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "dayjs": "^1.10.4",
-    "express": "^4.17.1",
     "mongoose": "^5.12.9",
     "mongoose-type-url": "^2.1.0",
     "nanoid": "^3.1.23",
