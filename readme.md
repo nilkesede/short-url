@@ -7,14 +7,14 @@
 
 ### Usage
 ```
-POST https://short-url-nilkesede.vercel.app
+POST https://short-url.ksde.pw
 {
     "url": "https://nilkesede.sh"
 }
 
 RESPONSE
 {
-    "url": "https://short-url-nilkesede.vercel.app/Z6XPGgxnd7"
+    "url": "https://short-url.ksde.pw/Z6XPGgxnd7"
 }
 ```
 
