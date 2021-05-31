@@ -43,7 +43,7 @@ describe('Short url generator', () => {
   })
 
   it('should generate new slug after 1 month', async () => {
-    MockDate.set(dayjs().add(1, 'M'))
+    MockDate.set(dayjs().add(1, 'M').add(1, 'd'))
 
     const { res } = await expressMock(generator, { body: { url } })
     const data = res._getData()
